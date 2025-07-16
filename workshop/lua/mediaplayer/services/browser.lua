@@ -22,7 +22,7 @@ if CLIENT then
 			local entheight = config.height or resolution
 			w = resolution * (entwidth / entheight)
 		end
-		
+
 		MediaPlayer.SetBrowserSize( browser, w, h )
 
 		-- Implement this in a child service
@@ -47,7 +47,7 @@ if CLIENT then
 	function SERVICE:Play()
 
 		BaseClass.Play( self )
-
+		
 		if self.Browser and IsValid(self.Browser) then
 			self:OnBrowserReady( self.Browser )
 		else

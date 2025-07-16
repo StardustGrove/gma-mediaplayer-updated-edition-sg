@@ -160,7 +160,6 @@ function VOLUME_SLIDER:PaintKnob( w, h )
 end
 
 function VOLUME_SLIDER:SetSlideX( value )
-
 	if self._lockVolume then return end
 
 	value = clamp(value, 0, 1)

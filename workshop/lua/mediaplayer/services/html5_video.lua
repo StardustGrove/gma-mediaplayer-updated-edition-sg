@@ -83,10 +83,11 @@ if CLIENT then
 		end
 
 	end
-
+	
 	function SERVICE:SetVolume( volume )
 		if (IsValid(self.Browser)) then
-			local js = JS_Volume:format( MediaPlayer.Volume() )
+			volume = math.Clamp( volume + (math.random() * 0.0001), 0, 1 )
+			local js = JS_Volume:format( volume )
 			self.Browser:RunJavascript(js)
 		end
 	end
