@@ -14,6 +14,7 @@ include "shared.lua"
 include "cl_requests.lua"
 include "cl_idlescreen.lua"
 include "cl_screen.lua"
+include("cl_spawnmenu_options.lua")
 
 function MediaPlayer.Volume( volume )
 

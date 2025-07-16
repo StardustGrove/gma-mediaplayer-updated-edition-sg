@@ -17,6 +17,7 @@ AddCSLuaFile "cl_init.lua"
 AddCSLuaFile "cl_requests.lua"
 AddCSLuaFile "cl_idlescreen.lua"
 AddCSLuaFile "cl_screen.lua"
+AddCSLuaFile("cl_spawnmenu_options.lua")
 AddCSLuaFile "shared.lua"
 AddCSLuaFile "sh_events.lua"
 AddCSLuaFile "sh_mediaplayer.lua"
