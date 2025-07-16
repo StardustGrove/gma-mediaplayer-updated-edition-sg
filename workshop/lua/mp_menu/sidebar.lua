@@ -194,7 +194,10 @@ function MediaPlayer.ShowSidebar( mp )
 
 	-- First check if we're looking at a media player
 	if not mp then
-		local ent = LocalPlayer():GetEyeTrace().Entity
+		local trInfo = util.GetPlayerTrace(LocalPlayer())
+		trInfo.filter = player.GetAll() -- exclude players from blocking the trace
+		local tr = util.TraceLine(trInfo)
+		local ent = tr.Entity
 		if IsValid(ent) then
 			mp = MediaPlayer.GetByObject( ent )
 		end
