@@ -85,15 +85,18 @@ if CLIENT then
 	end
 
 	function SERVICE:SetVolume( volume )
-		local js = JS_Volume:format( MediaPlayer.Volume() )
-		self.Browser:RunJavascript(js)
+		if (IsValid(self.Browser)) then
+			local js = JS_Volume:format( MediaPlayer.Volume() )
+			self.Browser:RunJavascript(js)
+		end
 	end
 
 	function SERVICE:Sync()
-
-		local seekTime = self:CurrentTime()
-		if self:IsTimed() and seekTime > 0 then
-			self.Browser:RunJavascript(JS_Seek:format(seekTime))
+		if (IsValid(self.Browser)) then
+			local seekTime = self:CurrentTime()
+			if self:IsTimed() and seekTime > 0 then
+				self.Browser:RunJavascript(JS_Seek:format(seekTime))
+			end
 		end
 	end
 
