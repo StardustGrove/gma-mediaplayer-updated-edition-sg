@@ -41,6 +41,10 @@ local function RegisterOptionsMenu()
 			form:CheckBox("Show media thumbnails", "mediaplayer_draw_thumbnails")
 			form:ControlHelp("Show thumbnails for supported media types on Media Players which are turned off")
 			
+			form:CheckBox("Enable mouse input on screens", "mediaplayer_enable_screen_mouse_input")
+			form:ControlHelp("Enables clicking and scrolling on media player screens, while looking at them and holding your context menu keybind (C by default).")
+			form:ControlHelp("Tip: Disable this in order to prevent accidentally pausing videos when clicking on the screen.")
+			
 		end
 	)
 	

@@ -26,5 +26,6 @@ if CLIENT then
 	MediaPlayer.Cvars.MuteUnfocused	= CreateClientConVar( "mediaplayer_mute_unfocused", 1, true, false )
 	MediaPlayer.Cvars.Fullscreen	= CreateClientConVar( "mediaplayer_fullscreen", 0, false, false )
 	MediaPlayer.Cvars.DrawThumbnails = CreateClientConVar( "mediaplayer_draw_thumbnails", 0, true, false )
+	MediaPlayer.Cvars.EnableScreenMouseInput = CreateClientConVar( "mediaplayer_enable_screen_mouse_input", 1, true, false )
 
 end

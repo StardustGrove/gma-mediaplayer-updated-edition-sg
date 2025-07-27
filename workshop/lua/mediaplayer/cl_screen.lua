@@ -4,6 +4,8 @@
 
 local MAX_SCREEN_DISTANCE = 1000
 
+local EnableScreenMouseInputCvar = MediaPlayer.Cvars.EnableScreenMouseInput
+
 local function getScreenPos( ent, aimVector )
 	local w, h, pos, ang = ent:GetMediaPlayerPosition()
 	local eyePos = LocalPlayer():EyePos()
@@ -68,7 +70,11 @@ local function mousePressed( mouseCode, aimVector )
 	if mouseCode ~= MOUSE_LEFT then
 		return
 	end
-
+	
+	if (not EnableScreenMouseInputCvar:GetBool()) then
+		return
+	end
+	
 	MediaPlayer.DispatchScreenTrace( mpMouseReleased, aimVector )
 end
 hook.Add( "GUIMouseReleased", "MediaPlayer.ScreenIntersect", mousePressed )
@@ -86,7 +92,11 @@ end, 0.01, { trailing = false })
 
 hook.Add( "ContextMenuCreated", "MediaPlayer.Scroll", function( contextMenu )
 	if contextMenu.OnMouseWheeled then return end
-	contextMenu.OnMouseWheeled = function(panel, scrollDelta)
+	contextMenu.OnMouseWheeled = function(panel, scrollDelta)		
+		if (not EnableScreenMouseInputCvar:GetBool()) then
+			return
+		end
+		
 		mouseScroll(scrollDelta)
 	end
 end )
