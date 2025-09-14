@@ -19,16 +19,19 @@ local JS_Seek = [[
 
 local JS_Interface = [[
 	var checkerInterval = setInterval(function() {
-		if (document.querySelector(".np_DialogConsent-accept")) {
-			document.querySelector(".np_DialogConsent-accept").click();
+		var player = document.querySelector("video#vjs_video_3_html5_api")
+		var consentBtn = document.querySelector("#onetrust-accept-btn-handler")
+
+		if (!!consentBtn) {
+			consentBtn.click()
+			return
 		}
 
-		if (document.querySelector(".consent_screen-button.consent_screen-accept")) {
-			document.querySelector(".consent_screen-button.consent_screen-accept").click();
-		}
+		if (!consentBtn && !!player && !player.paused && player.readyState == 4) {
+			if (player.muted == true) {
+				player.muted = false
+			}
 
-		var player = document.querySelector("video#video");
-		if (!!player && player.paused == false && player.readyState == 4) {
 			clearInterval(checkerInterval);
 
 			window.MediaPlayer = player;
@@ -36,31 +39,34 @@ local JS_Interface = [[
 	}, 50);
 ]]
 
-function SERVICE:GetURL()
-	local videoId = self:GetDailymotionVideoId()
-	return ("https://www.dailymotion.com/embed/video/%s?rel=0&autoplay=1"):format( videoId )
-end
-
 function SERVICE:OnBrowserReady( browser )
 
 	-- Resume paused player
-	if self._DMPaused then
+	if self._OdyseePaused then
 		self.Browser:RunJavascript( JS_Play )
-		self._DMPaused = nil
+		self._OdyseePaused = nil
 		return
 	end
 
 	BaseClass.OnBrowserReady( self, browser )
 
+	local videoId = self:GetOdyseeVideoId()
+
+	if not self:IsTimed() then
+		videoId = ("@%s/%s"):format(self:GetOdyseeChannel(), videoId)
+	end
+
+	local embedUrl = ("https://odysee.com/$/embed/%s?autoplay=1"):format(videoId)
+
 	local curTime = self:CurrentTime()
-	local url = self:GetURL()
 
 	-- Add start time to URL if the video didn't just begin
 	if self:IsTimed() and curTime > 3 then
-		url = url .. "&start=" .. math.Round(curTime)
+		embedUrl = embedUrl .. "t=" .. math.Round(curTime)
 	end
 
-	browser:OpenURL( url )
+	print(embedUrl)
+	browser:OpenURL( embedUrl )
 	browser.OnDocumentReady = function(pnl)
 		browser:QueueJavascript( JS_Interface )
 	end
@@ -72,7 +78,7 @@ function SERVICE:Pause()
 
 	if IsValid(self.Browser) then
 		self.Browser:RunJavascript(JS_Pause)
-		self._DMPaused = true
+		self._OdyseePaused = true
 	end
 
 end
@@ -85,7 +91,7 @@ end
 function SERVICE:Sync()
 
 	local seekTime = self:CurrentTime()
-	if self:IsTimed() and seekTime > 0 then
+	if IsValid(self.Browser) and self:IsTimed() and seekTime > 0 then
 		self.Browser:RunJavascript(JS_Seek:format(seekTime))
 	end
 end

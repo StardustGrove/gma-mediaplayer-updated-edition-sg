@@ -9,63 +9,35 @@ DEFINE_BASECLASS( "mp_service_browser" )
 
 local JS_Pause = [[
 	if(window.MediaPlayer) {
-		MediaPlayer.pauseVideo()
+		MediaPlayer.pause()
 		mp_paused = true
 	} 
 ]]
 local JS_Play = [[
 	if(window.MediaPlayer) {
-		MediaPlayer.playVideo()
+		MediaPlayer.play();
 		mp_paused = false
 	} 
 ]]
 local JS_Volume = [[
 	if (window.MediaPlayer) {
-		if (MediaPlayer.isMuted()) {
-			MediaPlayer.unMute();
-		}
-
-		MediaPlayer.setVolume(%s * 100)
+		MediaPlayer.volume = %s;
 	}
 ]]
 
 local JS_Seek = [[
 	if (window.MediaPlayer) {
-		var seekTime = %s
-		var curTime = MediaPlayer.getCurrentTime()
+		var seekTime = %s;
+		var curTime = window.MediaPlayer.currentTime;
 
-		var diffTime = Math.abs(curTime - seekTime)
+		var diffTime = Math.abs(curTime - seekTime);
 		if (diffTime > 5) {
-			MediaPlayer.seekTo(seekTime, true)
+			window.MediaPlayer.currentTime = seekTime
 		}
 	}
 ]]
 
-local JS_Interface = [[
-	(async () => {
-		var checkerInterval = setInterval(function () {
-			if (!YT || !YT.get) { return }
-
-			if (typeof YT === 'object') {
-				var player = YT.get("widget2")
-
-				if (!!player && !!player.getDuration) {
-					clearInterval(checkerInterval)
-
-					window.MediaPlayer = player
-				}
-			}
-		}, 50)
-	})()
-]]
-
-
---[[
-	This site is hosted on a private repo with Cloudflare as CDN, changes have been made to work better with Garry's Mod.
-	It is based on @9oelM's YouTube-Lite work. Src: https://github.com/9oelM/youtube-lite
---]]
-local WATCH_URL = "https://gmod-youtube.pages.dev/#/watch?v=%s"
-
+local WATCH_URL = "https://purrcoding-mediaplayer.pages.dev/youtube.html?v=%s"
 local API_URL = "https://www.youtube.com/watch?v=%s"
 
 ---
@@ -203,9 +175,6 @@ function SERVICE:OnBrowserReady( browser )
 	-- end
 
 	browser:OpenURL( url )
-	browser.OnDocumentReady = function(pnl)
-		browser:QueueJavascript( JS_Interface )
-	end
 
 end
 
@@ -220,7 +189,7 @@ function SERVICE:Pause()
 end
 
 function SERVICE:SetVolume( volume )
-	local js = JS_Volume:format( MediaPlayer.Volume() )
+	local js = JS_Volume:format( volume )
 	self.Browser:RunJavascript(js)
 end
 
