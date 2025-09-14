@@ -1,3 +1,16 @@
+
+local function CreateSpacer(parent, height)
+	if (height == nil) then height = 10 end
+	
+	local spacer = vgui.Create("DLabel", parent)
+	spacer:Dock(TOP)
+	spacer:SetText("")
+	spacer:SetHeight(height)
+	
+	return spacer
+end
+
+
 local function RegisterOptionsMenu()
 	
 	spawnmenu.AddToolMenuOption(
@@ -87,33 +100,69 @@ local function RegisterOptionsMenu()
 			form:ControlHelp("WARNING: Resolutions above 480 may significantly affect your framerate!")
 			form:ControlHelp("Changing this value only takes effect after you turn a Media Player off then back on again.")
 			
+			CreateSpacer(form)
+			
 			--// Audio volume
 			--local cvar_mediaplayer_volume = GetConVar("mediaplayer_volume") -- For some stupid reason, there is no min or max defined for this cvar
 			--form:NumSlider("Audio volume", "mediaplayer_volume", cvar_mediaplayer_volume:GetMin(), cvar_mediaplayer_volume:GetMax(), 2)
 			form:NumSlider("Audio volume", "mediaplayer_volume", 0, 1, 2) -- so we have to assume a reasonable range instead
 			form:ControlHelp("Sound volume level for all Media Players.")
 			
+			--// Audio fade out range
+			form:NumSlider("Audio fade out start", "mediaplayer_proximity_min", 0, 10000, 0) -- these cvars also do not have any range defined, so have to assume one
+			form:NumSlider("Audio fade out end", "mediaplayer_proximity_max", 0, 10000, 0) -- ^
+			form:ControlHelp("Range where Media Players' audio will start to fade out, as you get farther away from them.")
+			
+			CreateSpacer(form)
+			
 			--// 3D BASS audio
 			form:CheckBox("Enable 3D audio", "mediaplayer_3daudio")
 			form:ControlHelp("Enables realistic directional sound from Media Players. ONLY WORKS WHEN PLAYING AUDIO FILES! (not videos)")
+			
+			CreateSpacer(form)
 			
 			--// Mute when unfocused
 			form:CheckBox("Mute when unfocused", "mediaplayer_mute_unfocused")
 			form:ControlHelp("Mutes all Media Players when Garry's Mod is not focused.")
 			
+			CreateSpacer(form)
+			
 			--// Show media thumbnails
 			form:CheckBox("Show media thumbnails", "mediaplayer_draw_thumbnails")
-			form:ControlHelp("Show thumbnails for supported media types on Media Players which are turned off")
+			form:ControlHelp("Show thumbnails for supported media types on Media Players which are turned off.")
+			
+			CreateSpacer(form)
 			
 			--// Enable mouse input on media player screens
 			form:CheckBox("Enable mouse input on screens", "mediaplayer_enable_screen_mouse_input")
 			form:ControlHelp("Enables clicking and scrolling on media player screens, while looking at them and holding your context menu keybind (C by default).")
 			form:ControlHelp("Tip: Disable this in order to prevent accidentally pausing videos when clicking on the screen.")
 			
+			CreateSpacer(form, 20)
+			
+			local resetAll = form:Button("Reset all to defaults")
+			resetAll.DoClick = function()
+				--// Only reset the cvars that are shown in this panel
+				local cvars = {
+					MediaPlayer.Cvars.Resolution,
+					MediaPlayer.Cvars.Audio3D,
+					MediaPlayer.Cvars.Volume,
+					MediaPlayer.Cvars.MuteUnfocused,
+					MediaPlayer.Cvars.DrawThumbnails,
+					MediaPlayer.Cvars.ProximityMin,
+					MediaPlayer.Cvars.ProximityMax,
+					MediaPlayer.Cvars.EnableScreenMouseInput,
+				}
+				for _, cvar in ipairs(cvars) do
+					cvar:Revert()
+				end
+			end
+			
 		end
 	)
 	
 end
+
 
 hook.Add("PopulateToolMenu", "MediaPlayer_PopulateToolMenu", function()
 	RegisterOptionsMenu()
