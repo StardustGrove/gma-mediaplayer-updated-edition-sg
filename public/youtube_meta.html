@@ -5,7 +5,7 @@
 	<!-- 👋👋👋 Hello dear code reader, have fun understanding how YT works without ads. -->
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
-	<title>YT Minimal Player</title>
+	<title>YT Minimal Player (Metadata)</title>
 
 	<link rel="dns-prefetch" href="//www.youtube.com">
 	<link rel="dns-prefetch" href="//www.youtube-nocookie.com">
@@ -17,18 +17,17 @@
 		body {
 			margin: 0;
 			padding: 0;
-			width: 100%;
-			height: 100%;
+			width: 25%;
+			height: 25%;
 			overflow: hidden;
 		}
 
 		#player-container {
-			width: 100%;
-			height: 100%;
+			width: 25%;
+			height: 25%;
 			position: fixed;
 			top: 0;
 			left: 0;
-			background: #000000;
 		}
 	</style>
 </head>
@@ -82,48 +81,34 @@
 				host: 'https://www.youtube-nocookie.com',
 				events: {
 					onReady: () => {
-						wrapper._ready = true
-
-						window.MediaPlayer = wrapper;
+						player.setVolume(0)
 					},
-					onStateChange: (e) => wrapper._paused = e.data !== YT.PlayerState.PLAYING
+					onStateChange: (event) => {
+						if (event.data === YT.PlayerState.PLAYING) {
+
+							const videoData = player.getVideoData()
+							const metadata = {
+								title: videoData.title,
+								isLive: videoData.isLive,
+								duration: player.getDuration(),
+							};
+
+							console.log("METADATA:" + JSON.stringify(metadata));
+						}
+					},
+					onError: (event) => {
+						const YT_ERROR_CODES = {
+							2: "Invalid parameter value (e.g. wrong video ID format).",
+							5: "HTML5 player error – the requested content cannot be played in this player.",
+							100: "Video not found. It may have been removed, set to private, or the ID is invalid.",
+							101: "The owner of the video has prohibited embedding on this site.",
+							150: "Video is age-restricted or unplayable for unknown reasons." // Same as 101
+						};
+
+						console.log("ERROR:" + YT_ERROR_CODES[event.data]);
+					}
 				}
 			});
-
-			const wrapper = {
-				_ready: false,
-				_paused: true,
-				play() {
-					if (this._ready) player.playVideo();
-				},
-				pause() {
-					if (this._ready) player.pauseVideo();
-				},
-
-				get currentTime() {
-					return this._ready ? player.getCurrentTime() : 0;
-				},
-				set currentTime(time) {
-					if (this._ready) player.seekTo(time, true);
-				},
-
-				get volume() {
-					return this._ready ? player.getVolume() : 100;
-				},
-				set volume(v) {
-					if (this._ready) {
-						if (player.isMuted()) {
-							player.unMute();
-						}
-
-						player.setVolume(v * 100);
-					}
-				},
-
-				get paused() {
-					return this._paused;
-				}
-			};
 		}
 
 		/**
