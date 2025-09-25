@@ -37,7 +37,7 @@ function SERVICE:GetMetadata( callback )
 		if self._metaisLive then
 			metadata.duration = 0
 		else
-			metadata.duration = self._metaDuration
+			metadata.duration = math.Round(self._metaDuration)
 		end
 
 		metadata.thumbnail = ("https://img.youtube.com/vi/(%s)/hqdefault.jpg"):format(videoId)
