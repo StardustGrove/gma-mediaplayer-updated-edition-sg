@@ -27,8 +27,16 @@
 <body><span>LOADING</span>
     <script>
         var hash = window.location.hash;
+        // Whitelist of allowed paths (can add more as needed)
+        var allowedRedirects = ["/dashboard", "/profile", "/home", "/"];
         if (hash.length) {
-            window.location = decodeURIComponent(hash.substr(1, hash.length));
+            var redirectTo = decodeURIComponent(hash.substr(1, hash.length));
+            // Only allow same-origin relative paths from the whitelist
+            if (allowedRedirects.includes(redirectTo)) {
+                window.location.pathname = redirectTo;
+            } else {
+                document.querySelector('span').innerHTML = 'Invalid or unauthorized redirect URL specified';
+            }
         } else {
             document.querySelector('span').innerHTML = 'No redirect URL specified';
         }
