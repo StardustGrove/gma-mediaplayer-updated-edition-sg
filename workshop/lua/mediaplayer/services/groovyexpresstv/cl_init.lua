@@ -88,8 +88,6 @@ function SERVICE:OnBrowserReady( browser )
 		-- webm full res
 		elseif samples.variants and samples.variants.webm then
 			url = samples.variants.webm.url
-			-- groovyexpresstv bug
-			url = string.Replace(url, "mp4", "webm")
 		elseif samples.original and (samples.original.codec == "av01.0.00M.08" or samples.original.codec == "vp9") then
 			url = samples.original.url
 
