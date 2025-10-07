@@ -110,6 +110,7 @@ do
 		"tiktok",
 		"bitchute",
 		"odysee",
+		"groovyexpresstv",
 
 		-- HTML Resources
 		"resource", -- base
