@@ -41,6 +41,8 @@ MediaPlayer.SetConfig({
 		url = "https://purrcoding.pages.dev/mediaplayer/youtube.html",
 		url_meta = "https://purrcoding.pages.dev/mediaplayer/youtube_meta.html",
 
+		-- Note to developers: if you want to host it yourself, 
+		-- don't use GitHub Pages for this, otherwise the ads may appear more frequently!
 	}
 
 })
