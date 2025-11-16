@@ -1,6 +1,7 @@
-The MIT License
+The MIT License (MIT)
+=====================
 
-Copyright &copy; 2014 GMod Media Player authors
+Copyright © 2014 GMod Media Player authors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

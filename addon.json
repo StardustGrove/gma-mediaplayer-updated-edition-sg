@@ -6,7 +6,6 @@
 		".git/*",
 		".github/*",
 		"public/*",
-		"LICENSE",
 		"*.bat",
 		"*.md",
 		"*.sw.vtx",
