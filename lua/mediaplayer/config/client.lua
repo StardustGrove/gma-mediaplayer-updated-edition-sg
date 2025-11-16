@@ -38,8 +38,8 @@ MediaPlayer.SetConfig({
 		-- URL where the YouTube player is located.
 		-- @type String
 		--
-		url = "https://gm-mediaplayer.pone.party/youtube.html",
-		url_meta = "https://gm-mediaplayer.pone.party/youtube_meta.html",
+		url = "https://purrcoding.pages.dev/mediaplayer/youtube.html",
+		url_meta = "https://purrcoding.pages.dev/mediaplayer/youtube_meta.html",
 
 	}
 
