@@ -109,7 +109,6 @@ do
 		"gdrive",
 		"tiktok",
 		"odysee",
-		"groovyexpresstv",
 
 		-- HTML Resources
 		"resource", -- base
