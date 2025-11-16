@@ -12,7 +12,7 @@ MediaPlayer.SetConfig({
 		-- Base URL where HTML content is located.
 		-- @type String
 		--
-		base_url = "https://gm-mediaplayer.pone.party/"
+		base_url = "https://purrcoding.github.io/gm-mediaplayer/"
 
 	},
 
@@ -25,7 +25,7 @@ MediaPlayer.SetConfig({
 		-- URL of the request menu.
 		-- @type String
 		--
-		url = "https://gm-mediaplayer.pone.party/request.html"
+		url = "https://purrcoding.github.io/gm-mediaplayer/request.html"
 
 	},
 
