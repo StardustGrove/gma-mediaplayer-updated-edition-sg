@@ -12,8 +12,8 @@ set "gmad=%basepath%\gmad.exe"
 set "gmpublish=%basepath%\gmpublish.exe"
 
 REM --- Use the directory of this .bat file as the addon source ---
-REM %~dp0 = drive + path of the script, always ends with a backslash
-set "publish_path=%~dp0"
+REM %cd% = drive + path of the script, always ends with a backslash
+set "publish_path=%cd%"
 
 REM --- Output .gma name and workshop addon ID ---
 set "publish_gma=workshop.gma"
