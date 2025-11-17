@@ -38,8 +38,8 @@ MediaPlayer.SetConfig({
 		-- URL where the YouTube player is located.
 		-- @type String
 		--
-		url = "https://purrcoding.pages.dev/mediaplayer/youtube.html",
-		url_meta = "https://purrcoding.pages.dev/mediaplayer/youtube_meta.html",
+		url = "https://purrcoding.b-cdn.net/mediaplayer/youtube.html",
+		url_meta = "https://purrcoding.b-cdn.net/mediaplayer/youtube_meta.html",
 
 		-- Note to developers: if you want to host it yourself, 
 		-- don't use GitHub Pages for this, otherwise the ads may appear more frequently!
