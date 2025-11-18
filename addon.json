@@ -3,6 +3,10 @@
 	"type"		:	"Tool",
 	"tags"		:	[ "fun", "movie" ],
 	"ignore"	:   [
+		".git/*",
+		".github/*",
+		"public/*",
+		"*.bat",
 		"*.md",
 		"*.sw.vtx",
 		"*.fgd"

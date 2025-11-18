@@ -12,7 +12,7 @@ MediaPlayer.SetConfig({
 		-- Base URL where HTML content is located.
 		-- @type String
 		--
-		base_url = "https://gm-mediaplayer.pone.party/"
+		base_url = "https://purrcoding.github.io/gm-mediaplayer/"
 
 	},
 
@@ -25,7 +25,7 @@ MediaPlayer.SetConfig({
 		-- URL of the request menu.
 		-- @type String
 		--
-		url = "https://gm-mediaplayer.pone.party/request.html"
+		url = "https://purrcoding.github.io/gm-mediaplayer/request.html"
 
 	},
 
@@ -38,9 +38,11 @@ MediaPlayer.SetConfig({
 		-- URL where the YouTube player is located.
 		-- @type String
 		--
-		url = "https://gm-mediaplayer.pone.party/youtube.html",
-		url_meta = "https://gm-mediaplayer.pone.party/youtube_meta.html",
+		url = "https://purrcoding.b-cdn.net/mediaplayer/youtube.html",
+		url_meta = "https://purrcoding.b-cdn.net/mediaplayer/youtube_meta.html",
 
+		-- Note to developers: if you want to host it yourself, 
+		-- don't use GitHub Pages for this, otherwise the ads may appear more frequently!
 	}
 
 })

@@ -108,7 +108,6 @@ do
 		"archive",
 		"gdrive",
 		--"tiktok",
-		"bitchute",
 		"odysee",
 
 		-- HTML Resources
